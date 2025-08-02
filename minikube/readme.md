@@ -29,6 +29,8 @@ sda                         8:0    0   100G  0 disk
 
 vagrant@minikube:~$ sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
 
+vagrant@minikube:~$ sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+
 vagrant@minikube:~$ df -h
 Filesystem                         Size  Used Avail Use% Mounted on
 tmpfs                              1.6G  1.1M  1.6G   1% /run
