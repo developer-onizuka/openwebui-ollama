@@ -1,3 +1,4 @@
+```
 vagrant@minikube:~$ df -h
 Filesystem                         Size  Used Avail Use% Mounted on
 tmpfs                              1.6G  1.1M  1.6G   1% /run
@@ -57,3 +58,4 @@ sda                         8:0    0   100G  0 disk
 ├─sda2                      8:2    0     2G  0 part /boot
 └─sda3                      8:3    0  60.9G  0 part 
   └─ubuntu--vg-ubuntu--lv 253:0    0  60.9G  0 lvm  /
+```
