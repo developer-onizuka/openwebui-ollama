@@ -19,7 +19,7 @@ metadata:
   name: ollama
   namespace: default
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ollama
@@ -36,3 +36,10 @@ spec:
         env:
         - name: CUDA_VISIBLE_DEVICES
           value: "-1"
+        volumeMounts:
+        - name: ollama-csi-data
+          mountPath: /root/.ollama
+      volumes:
+        - name: ollama-csi-data
+          persistentVolumeClaim:
+           claimName: pvc-nfs-ollama

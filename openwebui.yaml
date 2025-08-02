@@ -32,7 +32,7 @@ spec:
       volumes:
       - name: webui-data
         persistentVolumeClaim:
-          claimName: pvc-nfs-vm-dynamic
+          claimName: pvc-nfs-openwebui
       containers:
       - image: ghcr.io/open-webui/open-webui
         name: open-webui
