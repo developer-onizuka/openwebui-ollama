@@ -4,9 +4,8 @@ metadata:
   labels:
     app: ollama
   name: svc-ollama
-  namespace: ollama
+  namespace: default
 spec:
-  type: LoadBalancer
   ports:
   - port: 11434
   selector:
@@ -18,7 +17,7 @@ metadata:
   labels:
     app: ollama
   name: ollama
-  namespace: ollama
+  namespace: default
 spec:
   replicas: 1
   selector:
