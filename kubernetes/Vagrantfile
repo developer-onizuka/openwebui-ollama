@@ -60,7 +60,7 @@ EOF
     server.vm.network "private_network", ip: "192.168.33.100"
     server.vm.hostname = "master"
     server.vm.provider "virtualbox" do |vb|
-      vb.memory = 8192
+      vb.memory = 4096
       vb.cpus = 2
     end
     server.vm.provision "shell", inline: <<-SHELL
