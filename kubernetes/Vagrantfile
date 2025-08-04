@@ -128,22 +128,7 @@ EOF
 export KUBECONFIG=/home/vagrant/.kube/config
 source <(kubectl completion bash)
 EOF
-      kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml
-      kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml
-      cat <<EOF | kubectl create -f -
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: metallb-system
-  name: config
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - 192.168.33.220-192.168.33.250
-EOF
+      kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.15.2/config/manifests/metallb-native.yaml
     SHELL
   end
 #-------------------------
