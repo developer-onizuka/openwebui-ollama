@@ -11,8 +11,8 @@ Vagrant.configure("2") do |config|
       vb.cpus = 4
     end
     server.vm.provision "shell", inline: <<-SHELL
-      #sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
-      #resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+      sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+      resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
       swapoff -a
       sed -i "/swap/d" /etc/fstab
       apt update
@@ -64,8 +64,8 @@ EOF
       vb.cpus = 2
     end
     server.vm.provision "shell", inline: <<-SHELL
-      #sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
-      #resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+      sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+      resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
       swapoff -a
       sed -i "/swap/d" /etc/fstab
       apt update
@@ -117,11 +117,11 @@ EOF
       cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
       chown -R vagrant:vagrant /home/vagrant/.kube
       export KUBECONFIG=/home/vagrant/.kube/config
+      kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
       token=$(kubeadm token list |tail -n 1 |awk '{print $1}')
       hashkey=$(openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
       ssh vagrant@192.168.33.101 sudo kubeadm join 192.168.33.100:6443 --token $token --discovery-token-ca-cert-hash sha256:$hashkey
       kubectl label node worker1 node-role.kubernetes.io/node=worker1
-      kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
       sed -i "/swap/d" /etc/fstab
       apt install -y bash-completion
       cat <<EOF >> /home/vagrant/.bashrc
