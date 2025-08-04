@@ -11,8 +11,8 @@ Vagrant.configure("2") do |config|
       vb.cpus = 4
     end
     server.vm.provision "shell", inline: <<-SHELL
-      sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
-      resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+      #sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+      #resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
       swapoff -a
       sed -i "/swap/d" /etc/fstab
       apt update
@@ -60,12 +60,12 @@ EOF
     server.vm.network "private_network", ip: "192.168.33.100"
     server.vm.hostname = "master"
     server.vm.provider "virtualbox" do |vb|
-      vb.memory = 4096
+      vb.memory = 8192
       vb.cpus = 2
     end
     server.vm.provision "shell", inline: <<-SHELL
-      sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
-      resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+      #sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+      #resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
       swapoff -a
       sed -i "/swap/d" /etc/fstab
       apt update
