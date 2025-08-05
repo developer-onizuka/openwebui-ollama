@@ -1,4 +1,4 @@
-# Open WebUI & Ollama
+# Open WebUI & OllamaをKubernetesで動かす
 
 # 0. 必要なもの
 メモリ24GB程度のノートPC 1台
