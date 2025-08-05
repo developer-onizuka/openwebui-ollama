@@ -106,7 +106,7 @@ metallb-system   speaker-ldcz4                              1/1     Running   0 
 metallb-system   speaker-v8vn6                              1/1     Running   0          67m   192.168.33.101   worker1   <none>           <none>
 ```
 # 3-7. ロードバランサーのIPアドレス指定
-必要に応じて、ロードバランサーに割り当てるIPアドレスを指定します。
+ロードバランサーに割り当てるIPアドレスの範囲を指定します。
 ```
 kubectl apply -f metallb-ipaddress.yaml
 ```
