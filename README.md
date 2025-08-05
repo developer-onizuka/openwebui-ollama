@@ -28,6 +28,9 @@ Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行�
 <img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/user-openwebui-ollama.png" width="800">
 
 # 2. Kunernetes環境について
+
+<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/pictures/2.drawio.png" width="800">
+
 # 2-1. 各ノード
 | Node名 | CPU | Memory | IP Address |
 |---|---|---|---|
