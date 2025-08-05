@@ -170,5 +170,22 @@ svc-open-webui   LoadBalancer   10.96.28.106    192.168.33.2   8080:32220/TCP   
 外部のNFSにモデルを保存しているため、クラスタやPodを再起動しても、ダウンロードしたモデルは残っています。
 
 
-
+# 5. クリーンナップ
+```
+vagrant destroy -f
+```
+```
+$ cd openwebui-ollama/kubernetes
+$ vagrant destroy -f
+==> master: Forcing shutdown of VM...
+==> master: Destroying VM and associated drives...
+==> worker1: Forcing shutdown of VM...
+==> worker1: Destroying VM and associated drives...
+```
+```
+$ cd openwebui-ollama/nfs
+$ vagrant destroy -f
+==> nfs: Forcing shutdown of VM...
+==> nfs: Destroying VM and associated drives...
+```
 
