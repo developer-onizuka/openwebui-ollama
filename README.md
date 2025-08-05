@@ -147,12 +147,25 @@ ollama-6c988c64c6-xqvng       1/1     Running   0          25m   10.10.235.136  
 open-webui-8556f87cbc-5rtzz   1/1     Running   0          25m   10.10.235.137   worker1   <none> 
 ```
 
+# 3-12. Serviceの確認
+```
+kubectl get services
+```
+```
+$ kubectl get services
+NAME             TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)          AGE
+kubernetes       ClusterIP      10.96.0.1       <none>         443/TCP          85m
+svc-ollama       ClusterIP      10.103.87.228   <none>         11434/TCP        41m
+svc-open-webui   LoadBalancer   10.96.28.106    192.168.33.2   8080:32220/TCP   41m
+```
+
 # 4. Open WebUI
+任意のブラウザで、**192.168.33.2:8080**にアクセスする。<br>
+<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/openwebui-llm.png" width="720">
 
+モデルを検索し、ダウンロードすることでローカルでLLMがブラウザ上で扱えるようになる。<br>
 
-
-
-hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:latest
+例：hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:latest
 
 
 
