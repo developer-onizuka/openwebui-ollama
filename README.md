@@ -41,10 +41,13 @@ Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行�
 
 # 3. 手順
 # 3-1. Hypervisorのインストール
+>https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html
 
 # 3-2. Vagrantのインストール
+>https://developer.hashicorp.com/vagrant/install
 
-# 3-3. gitのインストール
+# 3-3. gitのインストール & git clone
+>https://git-scm.com/downloads
 ```
 git clone https://github.com/developer-onizuka/openwebui-ollama
 cd openwebui-ollama
@@ -63,7 +66,7 @@ cd nfs
 vagrant up
 cd ..
 ```
-# 3-5. Master nodeへのログイン & Yamlファイル等のダウンロード
+# 3-5. Master nodeへのログイン & git clone
 ```
 cd kubernetes
 vagrant ssh master
