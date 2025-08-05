@@ -1,7 +1,7 @@
 # Open WebUI & OllamaをKubernetesで動かす
 
 # 0. 必要なもの
-メモリ24GB程度のノートPC 1台
+メモリ24GB程度のノートPC 1台<br>
 (PCの性能が相当貧弱な場合でも、Minikubeを使うことで対応できます。#3-4-1-1を参照してください。)
 
 # 1. Goal
