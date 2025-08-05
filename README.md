@@ -78,6 +78,33 @@ cd openwebui-ollama
 kubectl get nodes -A -o wide
 kubectl get pods -A -o wide
 ```
+```
+$ kubectl get nodes -A -o wide
+NAME      STATUS   ROLES           AGE   VERSION   INTERNAL-IP      EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
+master    Ready    control-plane   67m   v1.33.3   192.168.33.100   <none>        Ubuntu 24.04.2 LTS   6.8.0-53-generic   containerd://1.7.27
+worker1   Ready    node            67m   v1.33.3   192.168.33.101   <none>        Ubuntu 24.04.2 LTS   6.8.0-53-generic   containerd://1.7.27
+```
+```
+$ kubectl get pods -A -o wide
+NAMESPACE        NAME                                       READY   STATUS    RESTARTS   AGE   IP               NODE      NOMINATED NODE   READINESS GATES
+kube-system      calico-kube-controllers-7498b9bb4c-lngsr   1/1     Running   0          67m   10.10.219.66     master    <none>           <none>
+kube-system      calico-node-4wbbs                          1/1     Running   0          67m   192.168.33.101   worker1   <none>           <none>
+kube-system      calico-node-8bt9k                          1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
+kube-system      coredns-674b8bbfcf-5strr                   1/1     Running   0          67m   10.10.219.67     master    <none>           <none>
+kube-system      coredns-674b8bbfcf-kqn54                   1/1     Running   0          67m   10.10.219.65     master    <none>           <none>
+kube-system      csi-nfs-controller-8fdc6755d-78qxc         5/5     Running   0          46m   192.168.33.101   worker1   <none>           <none>
+kube-system      csi-nfs-node-kjqnr                         3/3     Running   0          46m   192.168.33.100   master    <none>           <none>
+kube-system      csi-nfs-node-x2g8q                         3/3     Running   0          46m   192.168.33.101   worker1   <none>           <none>
+kube-system      etcd-master                                1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
+kube-system      kube-apiserver-master                      1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
+kube-system      kube-controller-manager-master             1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
+kube-system      kube-proxy-2xdcj                           1/1     Running   0          67m   192.168.33.101   worker1   <none>           <none>
+kube-system      kube-proxy-slq7w                           1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
+kube-system      kube-scheduler-master                      1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
+metallb-system   controller-58fdf44d87-66bfg                1/1     Running   0          67m   10.10.235.129    worker1   <none>           <none>
+metallb-system   speaker-ldcz4                              1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
+metallb-system   speaker-v8vn6                              1/1     Running   0          67m   192.168.33.101   worker1   <none>           <none>
+```
 # 3-7. ロードバランサーのIPアドレス指定
 必要に応じて、ロードバランサーに割り当てるIPアドレスを指定する。
 ```
@@ -91,25 +118,41 @@ kubectl apply -f metallb-ipaddress.yaml
 ```
 kubectl apply -f storageclass-vm-nfs.yaml
 ```
+```
+$ kubectl get sc
+NAME                   PROVISIONER      RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+nfs-vm-csi (default)   nfs.csi.k8s.io   Delete          Immediate           false                  45m
+```
 # 3-10. PVの展開
 ```
 kubectl apply -f pvc-nfs-ollama.yaml
 kubectl apply -f pvc-nfs-openwebui.yaml
 ```
-# 3-11. ollamaの展開
+```
+$ kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pvc-00400433-35b7-45ff-8ebd-9a485321f01c   20Gi       RWX            Delete           Bound    default/pvc-nfs-openwebui   nfs-vm-csi     <unset>                          25m
+pvc-15ca215d-dfc0-4835-990c-55437eea6672   20Gi       RWX            Delete           Bound    default/pvc-nfs-ollama      nfs-vm-csi     <unset> 
+```
+# 3-11. ollama & Open WebUIの展開
 ```
 kubectl apply -f ollama.yaml
-kubectl get pods -A -w -o wide
-```
-# 3-12. Open WebUIの展開
-```
 kubectl apply -f openwebui.yaml
-kubectl get pods -A -w -o wide
+```
+```
+$ kubectl get pods -o wide
+NAME                          READY   STATUS    RESTARTS   AGE   IP              NODE      NOMINATED NODE   READINESS GATES
+ollama-6c988c64c6-jrsn4       1/1     Running   0          25m   10.10.235.135   worker1   <none>           <none>
+ollama-6c988c64c6-xqvng       1/1     Running   0          25m   10.10.235.136   worker1   <none>           <none>
+open-webui-8556f87cbc-5rtzz   1/1     Running   0          25m   10.10.235.137   worker1   <none> 
 ```
 
+# 4. Open WebUI
 
 
 
+
+hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:latest
 
 
 
