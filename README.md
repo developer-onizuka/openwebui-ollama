@@ -25,7 +25,7 @@ Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行�
 <br>
 ここでは、Ollamaの推論フレームワークをKubernetes上で動作させ、Open WebUIと連携させることで、生成AIに直感的で使いやすいWeb UIを付加し、手軽に利用できる環境を構築することを目指すものです。
 
-<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/user-openwebui-ollama.png" width="360">
+<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/user-openwebui-ollama.png" width="800">
 
 # 2. Kunernetes環境について
 # 2-1. 各ノード
