@@ -106,7 +106,7 @@ metallb-system   speaker-ldcz4                              1/1     Running   0 
 metallb-system   speaker-v8vn6                              1/1     Running   0          67m   192.168.33.101   worker1   <none>           <none>
 ```
 # 3-7. ロードバランサーのIPアドレス指定
-必要に応じて、ロードバランサーに割り当てるIPアドレスを指定する。
+必要に応じて、ロードバランサーに割り当てるIPアドレスを指定します。
 ```
 kubectl apply -f metallb-ipaddress.yaml
 ```
@@ -160,12 +160,14 @@ svc-open-webui   LoadBalancer   10.96.28.106    192.168.33.2   8080:32220/TCP   
 ```
 
 # 4. Open WebUI
-任意のブラウザで、**192.168.33.2:8080**にアクセスする。<br><br>
+任意のブラウザで、**192.168.33.2:8080**にアクセスします。<br><br>
 <img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/openwebui-llm.png" width="880">
 
-モデルを検索し、ダウンロードすることでローカルでLLMがブラウザ上で扱えるようになる。<br>
+モデルを検索し、ダウンロードすることでローカルでLLMがブラウザ上で扱えるようになります。<br>
 
-例：hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:latest
+例：hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:latest<br><br>
+
+外部のNFSにモデルを保存しているため、クラスタやPodを再起動しても、ダウンロードしたモデルは残っています。
 
 
 
