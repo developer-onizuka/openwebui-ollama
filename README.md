@@ -72,7 +72,7 @@ cd kubernetes
 vagrant up
 cd ..
 ```
-# 3-4-1-1. Master node / Worker node　(Minikube版)
+# 3-4-1-1. Master node / Worker node (Minikube版)
 もし、準備したPCが相当貧弱な場合は、#3-4-1の代わりに以下コマンドでMinikubeによるKubernetes環境をお勧めします。
 ```
 cd minikube
