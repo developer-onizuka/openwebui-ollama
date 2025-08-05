@@ -8,7 +8,7 @@ Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行�
 > https://github.com/developer-onizuka/MachineLearningOnAWS/blob/main/BERT_FineTuning.ipynb <br>
 
 この課題を解決するために、vLLMやOllamaといったライブラリが登場しました。これらは独自のアルゴリズムを採用し、特にKey-Value (KV) Cacheの割り当てと管理を最適化することで、推論の非効率性を大幅に改善しています。<br><br>
-**vLLM**は、PagedAttentionと呼ばれる革新的なアルゴリズムを導入し、TransformerのKV Cacheをページングされたメモリシステムとして扱います。これにより、メモリの断片化（フラグメンテーション）が解消され、メモリの無駄を大幅に削減しつつ、高いスループットを実現しています。<br>
+**vLLM**は、PagedAttentionと呼ばれる革新的なアルゴリズムを導入し、TransformerのKV Cacheをページングされたメモリシステムとして扱います。これにより、メモリの断片化（フラグメンテーション）が解消され、メモリの無駄を大幅に削減しつつ、高いスループットを実現しています。<br><br>
 **Ollama**もまた、KV Cacheの効率的な管理を目的としたアルゴリズムを採用しています。これにより、キャッシュのメモリ無駄を大幅に削減するとともに、高速なアクセスと更新を実現し、ローカル環境でのLLM実行をより手軽に行えるようにしています。<br>
 
 ### 各推論フレームワークの比較
@@ -167,7 +167,7 @@ svc-open-webui   LoadBalancer   10.96.28.106    192.168.33.2   8080:32220/TCP   
 
 例：hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:latest<br><br>
 
-外部のNFSにモデルを保存しているため、クラスタやPodを再起動しても、ダウンロードしたモデルは残っています。
+外部のNFSにモデルを保存しているため、クラスタやPodを再起動しても、ダウンロードしたモデルは残っています。<br>
 
 
 # 5. クリーンナップ
