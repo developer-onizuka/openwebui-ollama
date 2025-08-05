@@ -161,7 +161,7 @@ svc-open-webui   LoadBalancer   10.96.28.106    192.168.33.2   8080:32220/TCP   
 
 # 4. Open WebUI
 任意のブラウザで、**192.168.33.2:8080**にアクセスする。<br>
-<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/openwebui-llm.png" width="720">
+<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/openwebui-llm.png" width="880">
 
 モデルを検索し、ダウンロードすることでローカルでLLMがブラウザ上で扱えるようになる。<br>
 
