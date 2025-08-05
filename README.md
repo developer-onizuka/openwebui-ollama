@@ -1,5 +1,8 @@
 # Open WebUI & Ollama
 
+# 0. 必要なもの
+メモリ24GB程度のノートPC 1台
+
 # 1. Goal
 Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行う上で非常に強力なツールです。特に、pipelineメソッドはモデルの推論を簡潔に実行できるため、多くの開発者に利用されています。<br>
 しかし、Transformersの実装には、LLMの推論時にいくつかの非効率性が課題として挙げられています。これらの課題は、推論速度やGPUメモリの利用効率に影響を与え、特に大規模なモデルやリアルタイムでの利用においてボトルネックとなることがあります。
@@ -142,7 +145,7 @@ NAME                                       CAPACITY   ACCESS MODES   RECLAIM POL
 pvc-00400433-35b7-45ff-8ebd-9a485321f01c   20Gi       RWX            Delete           Bound    default/pvc-nfs-openwebui   nfs-vm-csi     <unset>                          25m
 pvc-15ca215d-dfc0-4835-990c-55437eea6672   20Gi       RWX            Delete           Bound    default/pvc-nfs-ollama      nfs-vm-csi     <unset> 
 ```
-# 3-11. ollama & Open WebUIの展開
+# 3-11. Ollama & Open WebUIの展開
 ```
 kubectl apply -f ollama.yaml
 kubectl apply -f openwebui.yaml
