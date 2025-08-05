@@ -29,19 +29,80 @@ Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行�
 
 # 2. Kunernetes環境について
 
-<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/pictures/2.drawio.png" width="640">
+# 構築イメージ図<br>
+<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/pictures/2.drawio.png" width="720">
 
-# 2-1. 各ノード
+# 各ノードのスペック
 | Node名 | CPU | Memory | IP Address |
 |---|---|---|---|
 | master | 4 | 8GB | 192.168.33.100 |
 | worker1 | 4 | 8GB | 192.168.33.101 |
 | nfs | 1 | 1GB | 192.168.33.11 |
 
-# 2-2. ロードバランサー
-
 # 3. 手順
+# 3-1. Hypervisorのインストール
 
+# 3-2. Vagrantのインストール
+
+# 3-3. gitのインストール
+```
+git clone https://github.com/developer-onizuka/openwebui-ollama
+cd openwebui-ollama
+```
+
+# 3-4. 仮想マシンの展開
+# 3-4-1. Master node / Worker node
+```
+cd kubernetes
+vagrant up
+cd ..
+```
+# 3-4-2. NFSサーバー
+```
+cd nfs
+vagrant up
+cd ..
+```
+# 3-5. Master nodeへのログイン & Yamlファイル等のダウンロード
+```
+cd kubernetes
+vagrant ssh master
+git clone https://github.com/developer-onizuka/openwebui-ollama
+cd openwebui-ollama
+```
+# 3-6. Kubernetesクラスタの確認
+```
+kubectl get nodes -A -o wide
+kubectl get pods -A -o wide
+```
+# 3-7. ロードバランサーのIPアドレス指定
+必要に応じて、ロードバランサーに割り当てるIPアドレスを指定する。
+```
+kubectl apply -f metallb-ipaddress.yaml
+```
+# 3-8. NFS用のCSIドライバの展開
+```
+./install-csi-driver.sh
+```
+# 3-9. StorageClassの展開
+```
+kubectl apply -f storageclass-vm-nfs.yaml
+```
+# 3-10. PVの展開
+```
+kubectl apply -f pvc-nfs-ollama.yaml
+kubectl apply -f pvc-nfs-openwebui.yaml
+```
+# 3-11. ollamaの展開
+```
+kubectl apply -f ollama.yaml
+kubectl get pods -A -w -o wide
+```
+# 3-12. Open WebUIの展開
+```
+kubectl apply -f openwebui.yaml
+kubectl get pods -A -w -o wide
+```
 
 
 
