@@ -2,6 +2,7 @@
 
 # 0. 必要なもの
 メモリ24GB程度のノートPC 1台
+(PCの性能が相当貧弱な場合でも、Minikubeを使うことで対応できます。#3-4-1-1を参照してください。)
 
 # 1. Goal
 Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行う上で非常に強力なツールです。特に、pipelineメソッドはモデルの推論を簡潔に実行できるため、多くの開発者に利用されています。<br>
@@ -65,9 +66,16 @@ cd openwebui-ollama
 ```
 
 # 3-4. 仮想マシンの展開
-# 3-4-1. Master node / Worker node
+# 3-4-1. Master node / Worker node (Kubernetes版)
 ```
 cd kubernetes
+vagrant up
+cd ..
+```
+# 3-4-1-1. Master node / Worker node　(Minikube版)
+もし、準備したPCが相当貧弱な場合は、#3-4-1の代わりに以下コマンドでMinikubeによるKubernetes環境をお勧めします。
+```
+cd minikube
 vagrant up
 cd ..
 ```
@@ -77,6 +85,7 @@ cd nfs
 vagrant up
 cd ..
 ```
+
 # 3-5. Master nodeへのログイン & git clone
 ```
 cd kubernetes
