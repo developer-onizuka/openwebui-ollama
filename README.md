@@ -1,4 +1,4 @@
-Open WebUI & Ollama
+# Open WebUI & Ollama
 
 # 1. Goal
 Hugging FaceのTransformersライブラリは、**LLM**の学習や推論を行う上で非常に強力なツールです。特に、pipelineメソッドはモデルの推論を簡潔に実行できるため、多くの開発者に利用されています。<br>
