@@ -94,6 +94,7 @@ git clone https://github.com/developer-onizuka/openwebui-ollama
 cd openwebui-ollama
 ```
 * 3-4-1-1でMinikubeで環境を作った場合には、vagrant ssh minikubeでログインしてください。<br>
+ログイン後、minikube startを実行することで、Kubernetesクラスタが展開されます。<br>
 
 # 3-6. Kubernetesクラスタの確認
 ```
