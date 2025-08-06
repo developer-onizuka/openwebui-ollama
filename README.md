@@ -131,7 +131,7 @@ metallb-system   speaker-v8vn6                              1/1     Running   0 
 kubectl apply -f metallb-ipaddress.yaml
 ```
 なお、ロードバランサーは、各worker nodeに展開されたServiceに均等にアクセスされるようにするものです。今回の例ではworker nodeが１つしかないため単なる外部通信のための出口としての機能しかないように見えます。<br>
-<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/type-loadbalancer.png" width="720">
+<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/type-loadbalancer.png" width="880">
 
 
 # 3-8. NFS用のCSIドライバの展開
