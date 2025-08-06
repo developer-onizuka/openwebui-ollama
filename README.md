@@ -125,11 +125,15 @@ metallb-system   controller-58fdf44d87-66bfg                1/1     Running   0 
 metallb-system   speaker-ldcz4                              1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
 metallb-system   speaker-v8vn6                              1/1     Running   0          67m   192.168.33.101   worker1   <none>           <none>
 ```
-# 3-7. ロードバランサーのIPアドレス指定
+# 3-7. ロードバランサーの設定
 ロードバランサーに割り当てるIPアドレスの範囲を指定します。
 ```
 kubectl apply -f metallb-ipaddress.yaml
 ```
+なお、ロードバランサーは、各worker nodeに展開されたServiceに均等にアクセスされるようにするものです。今回の例ではworker nodeが１つしかないため単なる外部通信のための出口としての機能しかないように見えます。<br>
+<img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/type-loadbalancer.png" width="720">
+
+
 # 3-8. NFS用のCSIドライバの展開
 ```
 ./install-csi-driver.sh
