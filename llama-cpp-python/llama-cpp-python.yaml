@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: llama-cpp-python
+  name: svc-llama-cpp-python
+  namespace: default
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+  selector:
+    app: llama-cpp-python
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: llama-cpp-python
+  name: llama-cpp-python
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-cpp-python
+  template:
+    metadata:
+      labels:
+        app: llama-cpp-python
+    spec:
+      initContainers:
+      - name: download-model
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          FILE_PATH="/app/models/llama-2-7b-chat.Q4_0.gguf"
+          if [ ! -f "$FILE_PATH" ]; then
+            echo "Model file not found. Downloading..."
+            wget -O "$FILE_PATH" "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_0.gguf"
+          else
+            echo "Model file already exists. Skipping download."
+          fi
+        volumeMounts:
+        - name: llama-cpp-python-csi-data
+          mountPath: /app/models
+      containers:
+      - image: developeronizuka/llama-cpp-python:arm64
+        name: llama-cpp-python
+        ports:
+        - containerPort: 8000
+        command: ["/usr/bin/python3", "-m", "llama_cpp.server"]
+        args:
+        - "--model"
+        - "/app/models/llama-2-7b-chat.Q4_0.gguf"
+        - "--host"
+        - "0.0.0.0"
+        - "--port"
+        - "8000"
+        - "--n_gpu_layers"
+        - "0"
+        - "--n_ctx"
+        - "2048"
+        volumeMounts:
+        - name: llama-cpp-python-csi-data
+          mountPath: /app/models
+        resources:
+          requests:
+            memory: "6Gi"
+            cpu: "3"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+      volumes:
+        - name: llama-cpp-python-csi-data
+          persistentVolumeClaim:
+           claimName: pvc-nfs-llama-cpp-python
