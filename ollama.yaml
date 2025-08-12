@@ -40,6 +40,6 @@ spec:
         - name: ollama-csi-data
           mountPath: /root/.ollama
       volumes:
-        - name: ollama-csi-data
-          persistentVolumeClaim:
-           claimName: pvc-nfs-ollama
+      - name: ollama-csi-data
+        persistentVolumeClaim:
+          claimName: pvc-nfs-ollama
