@@ -32,7 +32,7 @@ spec:
       volumes:
       - name: webui-data
         persistentVolumeClaim:
-          claimName: pvc-nfs-llama-cpp-python
+          claimName: pvc-nfs-openwebui
       containers:
       - image: ghcr.io/open-webui/open-webui
         name: open-webui-llama-cpp-python
@@ -42,5 +42,5 @@ spec:
         - name: OPENAI_API_BASE_URL
           value: "http://svc-llama-cpp-python:8000/v1"
         volumeMounts:
-          - name: webui-data
-            mountPath: /app/backend/data
+        - name: webui-data
+          mountPath: /app/backend/data
