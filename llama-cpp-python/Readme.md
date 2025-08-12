@@ -15,7 +15,7 @@ curl http://localhost:8000/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "日本の首都はどこですか？"
+        "content": "Who is Tokugawa Yoshinobu ?"
       }
     ],
     "stream": false,
