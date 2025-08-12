@@ -1,4 +1,15 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: model-config
+  namespace: default
+data:
+  MODEL_FILENAME: "gpt-oss-20b-Q4_K_M.gguf"
+  MODEL_DOWNLOAD_URL: "https://huggingface.co/unsloth/gpt-oss-20b-GGUF/resolve/main/gpt-oss-20b-Q4_K_M.gguf"
+  #MODEL_FILENAME: "Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+  #MODEL_DOWNLOAD_URL: "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -29,23 +40,6 @@ spec:
       labels:
         app: llama-cpp-python
     spec:
-      initContainers:
-      - name: download-model
-        image: busybox
-        command:
-        - sh
-        - -c
-        - |
-          FILE_PATH="/app/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
-          if [ ! -f "$FILE_PATH" ]; then
-            echo "Model file not found. Downloading..."
-            wget -O "$FILE_PATH" "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
-          else
-            echo "Model file already exists. Skipping download."
-          fi
-        volumeMounts:
-        - name: llama-cpp-python-csi-data
-          mountPath: /app/models
       containers:
       - image: developeronizuka/llama-cpp-python:arm64
         name: llama-cpp-python
@@ -54,7 +48,7 @@ spec:
         command: ["/usr/bin/python3", "-m", "llama_cpp.server"]
         args:
         - "--model"
-        - "/app/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+        - "/app/models/$(MODEL_FILENAME)"
         - "--host"
         - "0.0.0.0"
         - "--port"
@@ -63,6 +57,17 @@ spec:
         - "0"
         - "--n_ctx"
         - "2048"
+        env:
+        - name: MODEL_FILENAME
+          valueFrom:
+            configMapKeyRef:
+              name: model-config
+              key: MODEL_FILENAME
+        - name: MODEL_DOWNLOAD_URL
+          valueFrom:
+            configMapKeyRef:
+              name: model-config
+              key: MODEL_DOWNLOAD_URL
         volumeMounts:
         - name: llama-cpp-python-csi-data
           mountPath: /app/models
@@ -73,7 +78,36 @@ spec:
           limits:
             memory: "8Gi"
             cpu: "4"
-      volumes:
+      initContainers:
+      - name: download-model
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          FILE_PATH="/app/models/$(MODEL_FILENAME)"
+          if [ ! -f "$FILE_PATH" ]; then
+            echo "Model file not found. Downloading..."
+            wget -O "$FILE_PATH" "$(MODEL_DOWNLOAD_URL)"
+          else
+            echo "Model file already exists. Skipping download."
+          fi
+        volumeMounts:
         - name: llama-cpp-python-csi-data
-          persistentVolumeClaim:
-           claimName: pvc-nfs-llama-cpp-python
+          mountPath: /app/models
+        env:
+        - name: MODEL_FILENAME
+          valueFrom:
+            configMapKeyRef:
+              name: model-config
+              key: MODEL_FILENAME
+        - name: MODEL_DOWNLOAD_URL
+          valueFrom:
+            configMapKeyRef:
+              name: model-config
+              key: MODEL_DOWNLOAD_URL
+      volumes:
+      - name: llama-cpp-python-csi-data
+        persistentVolumeClaim:
+          claimName: pvc-nfs-llama-cpp-python
+
