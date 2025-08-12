@@ -42,5 +42,5 @@ spec:
         - name: OLLAMA_BASE_URL
           value: http://svc-ollama:11434
         volumeMounts:
-          - name: webui-data
-            mountPath: /app/backend/data
+        - name: webui-data
+          mountPath: /app/backend/data
