@@ -6,7 +6,7 @@ metadata:
   name: svc-llama-cpp-python
   namespace: default
 spec:
-  type: LoadBalancer
+  #type: LoadBalancer
   ports:
   - port: 8000
   selector:
@@ -36,10 +36,10 @@ spec:
         - sh
         - -c
         - |
-          FILE_PATH="/app/models/llama-2-7b-chat.Q4_0.gguf"
+          FILE_PATH="/app/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
           if [ ! -f "$FILE_PATH" ]; then
             echo "Model file not found. Downloading..."
-            wget -O "$FILE_PATH" "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_0.gguf"
+            wget -O "$FILE_PATH" "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
           else
             echo "Model file already exists. Skipping download."
           fi
@@ -54,7 +54,7 @@ spec:
         command: ["/usr/bin/python3", "-m", "llama_cpp.server"]
         args:
         - "--model"
-        - "/app/models/llama-2-7b-chat.Q4_0.gguf"
+        - "/app/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
         - "--host"
         - "0.0.0.0"
         - "--port"

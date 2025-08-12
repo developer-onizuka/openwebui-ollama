@@ -38,9 +38,9 @@ spec:
         name: open-webui-llama-cpp-python
         ports:
         - containerPort: 8080
-        #env:
-        #- name: OLLAMA_BASE_URL
-        #value: http://svc-llama-cpp-python:8000
+        env:
+        - name: OPENAI_API_BASE_URL
+          value: "http://svc-llama-cpp-python:8000/v1"
         volumeMounts:
           - name: webui-data
             mountPath: /app/backend/data
