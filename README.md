@@ -52,41 +52,41 @@ Hello. My name is ...
 | nfs | 1 | 1GB | 192.168.33.11 |
 
 # 3. 手順
-# 3-1. Hypervisorのインストール
+### 3-1. Hypervisorのインストール
 >https://www.oracle.com/jp/virtualization/technologies/vm/downloads/virtualbox-downloads.html
 
-# 3-2. Vagrantのインストール
+### 3-2. Vagrantのインストール
 >https://developer.hashicorp.com/vagrant/install
 
-# 3-3. gitのインストール & git clone
+### 3-3. gitのインストール & git clone
 >https://git-scm.com/downloads
 ```
 git clone https://github.com/developer-onizuka/openwebui-ollama
 cd openwebui-ollama
 ```
 
-# 3-4. 仮想マシンの展開
-# 3-4-1. Master node / Worker node (Kubernetes版)
+### 3-4. 仮想マシンの展開
+### 3-4-1. Master node / Worker node (Kubernetes版)
 ```
 cd kubernetes
 vagrant up
 cd ..
 ```
-# 3-4-1-1. Master node / Worker node (Minikube版)
+### 3-4-1-1. Master node / Worker node (Minikube版)
 もし、準備したPCが相当貧弱な場合は、#3-4-1の代わりにMinikubeによるKubernetes環境をお勧めします。
 ```
 cd minikube
 vagrant up
 cd ..
 ```
-# 3-4-2. NFSサーバー
+### 3-4-2. NFSサーバー
 ```
 cd nfs
 vagrant up
 cd ..
 ```
 
-# 3-5. Master nodeへのログイン & git clone
+### 3-5. Master nodeへのログイン & git clone
 ```
 cd kubernetes
 vagrant ssh master
@@ -96,7 +96,7 @@ cd openwebui-ollama
 * 3-4-1-1でMinikubeで環境を作った場合には、vagrant ssh minikubeでログインしてください。<br>
 ログイン後、minikube startを実行することで、Kubernetesクラスタが展開されます。<br>
 
-# 3-6. Kubernetesクラスタの確認
+### 3-6. Kubernetesクラスタの確認
 ```
 kubectl get nodes -A -o wide
 kubectl get pods -A -o wide
@@ -128,7 +128,7 @@ metallb-system   controller-58fdf44d87-66bfg                1/1     Running   0 
 metallb-system   speaker-ldcz4                              1/1     Running   0          67m   192.168.33.100   master    <none>           <none>
 metallb-system   speaker-v8vn6                              1/1     Running   0          67m   192.168.33.101   worker1   <none>           <none>
 ```
-# 3-7. ロードバランサーの設定
+### 3-7. ロードバランサーの設定
 ロードバランサーに割り当てるIPアドレスの範囲を指定します。
 ```
 kubectl apply -f metallb-ipaddress.yaml
@@ -137,11 +137,11 @@ kubectl apply -f metallb-ipaddress.yaml
 <img src="https://github.com/developer-onizuka/openwebui-ollama/blob/main/type-loadbalancer.png" width="880">
 
 
-# 3-8. NFS用のCSIドライバの展開
+### 3-8. NFS用のCSIドライバの展開
 ```
 ./install-csi-driver.sh
 ```
-# 3-9. StorageClassの展開
+### 3-9. StorageClassの展開
 ```
 kubectl apply -f storageclass-vm-nfs.yaml
 ```
@@ -150,7 +150,7 @@ $ kubectl get sc
 NAME                   PROVISIONER      RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
 nfs-vm-csi (default)   nfs.csi.k8s.io   Delete          Immediate           false                  45m
 ```
-# 3-10. PVの展開
+### 3-10. PVの展開
 ```
 kubectl apply -f pvc-nfs-ollama.yaml
 kubectl apply -f pvc-nfs-openwebui.yaml
@@ -161,7 +161,7 @@ NAME                                       CAPACITY   ACCESS MODES   RECLAIM POL
 pvc-00400433-35b7-45ff-8ebd-9a485321f01c   20Gi       RWX            Delete           Bound    default/pvc-nfs-openwebui   nfs-vm-csi     <unset>                          25m
 pvc-15ca215d-dfc0-4835-990c-55437eea6672   20Gi       RWX            Delete           Bound    default/pvc-nfs-ollama      nfs-vm-csi     <unset> 
 ```
-# 3-11. Ollama & Open WebUIの展開
+### 3-11. Ollama & Open WebUIの展開
 ```
 kubectl apply -f ollama.yaml
 kubectl apply -f openwebui.yaml
@@ -174,7 +174,7 @@ ollama-6c988c64c6-xqvng       1/1     Running   0          25m   10.10.235.136  
 open-webui-8556f87cbc-5rtzz   1/1     Running   0          25m   10.10.235.137   worker1   <none> 
 ```
 
-# 3-12. Serviceの確認
+### 3-12. Serviceの確認
 ```
 kubectl get services
 ```
